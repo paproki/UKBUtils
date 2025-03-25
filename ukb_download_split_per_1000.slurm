@@ -45,7 +45,8 @@ if [[ ! -f $1 ]];then
 fi
 
 BULK_FILE="$1"            # Your bulk file with XX,XXX lines
-BULK_ID=${BULK_FILE/.bulk/}
+BULK_BASENAME=`basename $BULK_FILE`
+BULK_ID=${BULK_BASENAME/.bulk/}
 
 # Environment setup
 echo "Starting UK Biobank data download at $(date)"
