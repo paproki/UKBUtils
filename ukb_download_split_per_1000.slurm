@@ -26,8 +26,9 @@
 ############################### BASIC COMMAND LINE ###############################
 ##
 ## Example of usage with bulk item 20210
-## sbatch --array=0-$((`wc -l < 20210.csv`/1000))%3 ukb_download_split_per_1000.slurm /scratch/user/uqapapro/UKB/20210.csv
+## mkdir 20210;sbatch --array=0-$((`wc -l < 20210.csv`/1000))%3 ukb_download_split_per_1000.slurm /scratch/user/uqapapro/UKB/20210.csv
 ##
+## Note that I create a directory prior to running the script to not have mutiple jobs trying to create the same folder
 ##
 ## This will create a big job array, but only run 3 (%3) jobs simultanously 
 ##
