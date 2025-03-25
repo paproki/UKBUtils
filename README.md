@@ -30,7 +30,7 @@ mkdir 20210;sbatch --array=0-$((`wc -l < 20210.bulk`/1000))%10 ukb_download_spli
 ```
 Here we start by creating a folder for the bulk item. I prefer to do it before to avoid have several jobs trying to create it, which may cause trouble.
 
-If the bulk file 20210.bulk contains 75766 lines, this command line will create a job array of size 0-75 (n=76). In this case, because I suffixed %10 to the --array=0-75%10 parameter, slurm with only run 10 jobs simultaneously. EZPZ.
+If the bulk file 20210.bulk contains 75766 lines, this command line will create a job array of size 0-75 (n=76). In this case, because I suffixed %10 to the --array=0-75%10 parameter, slurm with only run 10 jobs simultaneously. Since we have only 10 instances that we can run simultaneously between all of us we'll need to change this to predefined number, for example %3.
 
 The script itself will create several batch folders as follows:
 
@@ -61,6 +61,10 @@ An example of fail.log would be
 This information can be used to detect abnormal errors. If the number at the bottom differs from the number of missing then something happened. 
 
 Finally the file corrupted_zips.log will only be create if the script detects that a zip file is malformed. For test this I go through all the zip files and try unzipping them using unzip -t XXXXXXXXXX.zip, which is a 'silent' unzipping that does not actually do the unzipping.
+
+
+
+The last step which is no included in this script will be to copy the data onto RDM. However I think we'll maybe, possibly, probably need to manually check the fail files prior to doing the copying?!
 
 ## Documentation for Create_bulk_file.sh
 
