@@ -36,17 +36,17 @@ The script itself will create several batch folders as follows:
 
 
 ```
-/scratch/user/{USER}/UKB
---------------------/batch_000
---------------------/batch_000/SUBJECTID_20210_X_0.zip
---------------------/batch_000/...
---------------------/batch_000/SUBJECTID_20210_X_0.zip
---------------------/batch_000/fetched_000.lis
---------------------/batch_000/fail.log
---------------------/batch_000/corrupted_zips.log
---------------------/batch_001
---------------------/...
---------------------/batch_075
+/scratch/user/{USER}/UKB/20210
+------------------------/20210/batch_000
+------------------------/20210/batch_000/SUBJECTID_20210_X_0.zip
+------------------------/20210/batch_000/...
+------------------------/20210/batch_000/SUBJECTID_20210_X_0.zip
+------------------------/20210/batch_000/fetched_000.lis
+------------------------/20210/batch_000/fail.log
+------------------------/20210/batch_000/corrupted_zips.log
+------------------------/20210/batch_001
+------------------------/20210/...
+------------------------/20210/batch_075
 ```
 
 fail.log will contain information on the zip that were note downloaded at all (i.e., completely missing) and the last line will contain the number of 'expected fails'. For some reason some subjects are not available for download and the ukbfetch return and error with a 'code 2' which I used to count the number of expected failures which we can then compare to the number of missing zips.
