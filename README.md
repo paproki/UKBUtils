@@ -19,7 +19,7 @@ For the download script, the assumed directory structure is as follows:
 --------------------/...
 ```
 
-All slurm outputs will be saved under /scratch/user/{USER}/UKB
+All slurm output logs will be saved under /scratch/user/{USER}/UKB
 
 ## ukb_download_split_per_1000.slurm script usage
 
