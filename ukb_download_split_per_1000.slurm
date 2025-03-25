@@ -34,6 +34,7 @@ if [[ ! -f $1 ]];then
 fi
 
 BULK_FILE="$1"            # Your bulk file with XX,XXX lines
+BULK_ID=${BULK_FILE/.bulk/}
 
 # Environment setup
 echo "Starting UK Biobank data download at $(date)"
@@ -83,12 +84,16 @@ fi
 
 echo "Batch $SLURM_ARRAY_TASK_ID: Start line = $START_LINE, Max lines = $MAX_LINES"
 
+#
+# SETUP DIRECTORY AND CHANGE DIRECTORY FOR DLD
+#
+
 # Create a directory for this batch
 BATCH_NAME=$(printf '%03d' $SLURM_ARRAY_TASK_ID) # Formatting 00X
 BATCH_DIR="batch_${BATCH_NAME}"
 FETCHED="fetched_${BATCH_NAME}"
-mkdir -p "$BATCH_DIR"
-cd "$BATCH_DIR" || exit 1
+mkdir -p "$BULK_ID/$BATCH_DIR"
+cd "$BULK_ID/$BATCH_DIR" || exit 1
 
 # Run ukbfetch
 echo "Running ukbfetch for batch $SLURM_ARRAY_TASK_ID..."
