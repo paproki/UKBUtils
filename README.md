@@ -21,6 +21,8 @@ For the download script, the assumed directory structure is as follows:
 
 All slurm output logs will be saved under /scratch/user/{USER}/UKB
 
+**It is important to have a bulk file with the following filename <ins>**BULKID.bulk**</ins> as I use it to build the path to the folder for download** (I could have done it differently but that was more work and I was getting lazy ¯\\_(ツ)_/¯ ).
+
 ## ukb_download_split_per_1000.slurm script usage
 
 The ukb_download_split_per_1000.slurm will start a job array and distribute jobs accross available resources. The script takes as input the bulk file to download. Since we are splitting the files into multiple batches of 1000 (max allowed number of lines downloaded per ukbfetch script), the number of jobs will be different for each bulk file. You can identify the number of jobs using basic bash commands (e.g., wc -l < 20210.bulk ). Assuming that you have currently seating in the folder **/scratch/user/${USER}/UKB** and that you have copied the download script inside of it, an example of command line to start a bulk file download for bulk item 20210 would be:
@@ -30,9 +32,9 @@ mkdir 20210;sbatch --array=0-$((`wc -l < 20210.bulk`/1000))%10 ukb_download_spli
 ```
 We start by creating a folder for the bulk item. I prefer to do it before to avoid having several jobs trying to create it, which may cause trouble.
 
-If the bulk file 20210.bulk contains 75766 lines, this command line will create a job array of size 0-75 (n=76). In this case, because I suffixed %10 to the --array=0-75%10 parameter, slurm with only run 10 jobs simultaneously. Since we have only 10 instances that we can run simultaneously between all of us we'll need to change this to predefined number, for example %3. 
+If the bulk file 20210.bulk contains 75766 lines, this command line will create a job array of size 0-75 (n=76). In this case, because I suffixed **%10** to the --array=0-75%10 parameter, slurm with only run 10 jobs simultaneously. Since we have only 10 instances that we can run simultaneously between all of us we'll need to change this to predefined number, for example %3. 
 
-Note that if you wanted to do a little try with a couple batches you can simply run the following command with a small 0-1 array. It will create a job array with 2 jobs running simultaneously:
+Note that if you wanted to do a little try with a couple batches you can simply run the following command with a small 0-1 array. It will create a job array with 2 jobs running simultaneously (replace the folder name and bulk file with your own):
 ```
 mkdir 20210;sbatch --array=0-1%2 ukb_download_split_per_1000.slurm /scratch/user/${USER}/UKB/20210.bulk
 ```
@@ -54,7 +56,7 @@ The script itself will create several batch folders as follows:
 ------------------------/20210/batch_075
 ```
 
-fail.log will contain information on the zip that were not downloaded at all (i.e., completely missing) and the last line will contain the number of 'expected fails'. For some reason some subjects are not available for download and the ukbfetch returns an error with a 'code 2', which I used to count the number of 'expected' failures which we can then compare to the number of missing zips.
+<ins>**fail.log**</ins> will contain information on the zip that were not downloaded at all (i.e., completely missing) and the last line will contain the number of **expected fails**. For some reason some subjects are not available for download and the ukbfetch returns an error with a 'code 2', which I used to count the number of 'expected' failures which we can then compare to the number of missing zips.
 An example of fail.log would be
 ```
 1204125 20210_3_0 1204125_20210_3_0.zip
@@ -65,7 +67,7 @@ An example of fail.log would be
 
 This information can be used to detect abnormal errors. If the number at the bottom differs from the number of missing zips then something else happened ( ¯\\_(ツ)_/¯ ). 
 
-Finally the file corrupted_zips.log will only be create if the script detects that a zip file is malformed. To test this I go through all the zip files and try unzipping them using 'unzip -t XXXXXXXXXX.zip', which runs a 'silent' unzipping that does not actually do the unzipping but tests if it would work.
+Finally the file **<ins>corrupted_zips.log</ins>** will only be created if the script detects that a zip file is malformed. To test this I go through all the zip files and try unzipping them using 'unzip -t XXXXXXXXXX.zip', which runs a 'silent' unzipping that does not actually do the unzipping but tests if it would work.
 
 At the moment the maximum time dedicated for each individual job is 6 hours. You may need to change this based on your needs (e.g., diffusion MRI will be huge). For each bulk file I would recommend downloading a couple of examples individually on your own machine to check the size of the zip file. The command to download an individual zip for a given Subject EID and bulk ID  is as follows:
 ```
@@ -77,6 +79,8 @@ It takes roughly 4 hours to download 1000 zip files averaging 6Mb and do the unz
 
 
 The last step, which is no included in this script, will be to copy the data onto RDM. However I think we'll maybe, possibly, probably need to manually check the fail logs prior to doing the copying ¯\\_(ツ)_/¯ ?!
+
+Note that I have no failsafe for cases where Bunya itself fails and screws up jobs. You can figure out if this happened using a command like sacct -X -j <job id> -o "JobID,JobName,State,Start,End,Elapsed,NodeList,ReqMem,MaxRSS,ExitCode,User"
 
 ## Documentation for Create_bulk_file.sh
 
