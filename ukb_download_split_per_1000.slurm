@@ -22,6 +22,17 @@
 ##
 #################################################################################
 
+
+############################### IMPORTANT WARNING ###############################
+##
+## Example of usage with bulk item 20210
+## sbatch --array=0-$((`wc -l < 20210.csv`/1000))%3 ukb_download_split_per_1000.slurm /scratch/user/uqapapro/UKB/20210.csv
+##
+##
+## This will create a big job array, but only run 3 (%3) jobs simultanously 
+##
+#################################################################################
+
 # Check if bulk file parameter is provided
 if [ -z "$1" ]; then
     echo "Error: No bulk file provided. Usage: sbatch $0 /path/to/bulkfile"
