@@ -23,7 +23,7 @@ All slurm output logs will be saved under /scratch/user/{USER}/UKB
 
 ## ukb_download_split_per_1000.slurm script usage
 
-The ukb_download_split_per_1000.slurm will start a job array and distribute jobs accross available resources. The script takes as input the bulk file to download. Since we are splitting the files into multiple batches of 1000 (max allowed number of lines downloaded per ukbfetch script), the number of jobs will be different for each bulk file. You can identify the number of jobs using basic bash commands (e.g., wc -l < 20210.bulk ). An example of command line to start a bulk file download for bulk item 20210 would be:
+The ukb_download_split_per_1000.slurm will start a job array and distribute jobs accross available resources. The script takes as input the bulk file to download. Since we are splitting the files into multiple batches of 1000 (max allowed number of lines downloaded per ukbfetch script), the number of jobs will be different for each bulk file. You can identify the number of jobs using basic bash commands (e.g., wc -l < 20210.bulk ). Assuming that you have currently seating in the folder **/scratch/user/${USER}/UKB** and that you have copied the download script inside of it, an example of command line to start a bulk file download for bulk item 20210 would be:
 
 ```
 mkdir 20210;sbatch --array=0-$((`wc -l < 20210.bulk`/1000))%10 ukb_download_split_per_1000.slurm /scratch/user/uqapapro/UKB/20210.bulk
