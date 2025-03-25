@@ -76,7 +76,7 @@ You can find example EID and BULKD-ID in the bulkfiles.bulk
 It takes roughly 4 hours to download 1000 zip files averaging 6Mb. Based on this you can decide how much time you need for your jobs.
 
 
-The last step which is no included in this script will be to copy the data onto RDM. However I think we'll maybe, possibly, probably need to manually check the fail files prior to doing the copying?!
+The last step which is no included in this script will be to copy the data onto RDM. However I think we'll maybe, possibly, probably need to manually check the fail logs prior to doing the copying?!
 
 ## Documentation for Create_bulk_file.sh
 
