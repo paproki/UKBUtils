@@ -63,7 +63,7 @@ An example of fail.log would be
 3
 ```
 
-This information can be used to detect abnormal errors. If the number at the bottom differs from the number of missing zips then something else happened ( ¯\_(ツ)_/¯ ). 
+This information can be used to detect abnormal errors. If the number at the bottom differs from the number of missing zips then something else happened ( ¯\\_(ツ)_/¯ ). 
 
 Finally the file corrupted_zips.log will only be create if the script detects that a zip file is malformed. To test this I go through all the zip files and try unzipping them using 'unzip -t XXXXXXXXXX.zip', which runs a 'silent' unzipping that does not actually do the unzipping but tests if it would work.
 
@@ -76,7 +76,7 @@ You can find example EID and BULKD-ID in the bulkfiles.bulk. (PS: do not add a s
 It takes roughly 4 hours to download 1000 zip files averaging 6Mb and do the unzip test. Based on this you can decide how much time you need for your jobs.
 
 
-The last step, which is no included in this script, will be to copy the data onto RDM. However I think we'll maybe, possibly, probably need to manually check the fail logs prior to doing the copying ¯\_(ツ)_/¯ ?!
+The last step, which is no included in this script, will be to copy the data onto RDM. However I think we'll maybe, possibly, probably need to manually check the fail logs prior to doing the copying ¯\\_(ツ)_/¯ ?!
 
 ## Documentation for Create_bulk_file.sh
 
