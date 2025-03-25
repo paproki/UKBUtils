@@ -26,7 +26,7 @@ All slurm output logs will be saved under /scratch/user/{USER}/UKB
 The ukb_download_split_per_1000.slurm will start a job array and distribute jobs accross available resources. The script takes as input the bulk file to download. Since we are splitting the files into multiple batches of 1000 (max allowed number of lines downloaded per ukbfetch script), the number of jobs will be different for each bulk file. You can identify the number of jobs using basic bash commands (e.g., wc -l < 20210.bulk ). Assuming that you have currently seating in the folder **/scratch/user/${USER}/UKB** and that you have copied the download script inside of it, an example of command line to start a bulk file download for bulk item 20210 would be:
 
 ```
-mkdir 20210;sbatch --array=0-$((`wc -l < 20210.bulk`/1000))%10 ukb_download_split_per_1000.slurm /scratch/user/uqapapro/UKB/20210.bulk
+mkdir 20210;sbatch --array=0-$((`wc -l < 20210.bulk`/1000))%10 ukb_download_split_per_1000.slurm /scratch/user/${USER}/UKB/20210.bulk
 ```
 We start by creating a folder for the bulk item. I prefer to do it before to avoid having several jobs trying to create it, which may cause trouble.
 
@@ -34,7 +34,7 @@ If the bulk file 20210.bulk contains 75766 lines, this command line will create 
 
 Note that if you wanted to do a little try with a couple batches you can simply run the following command with a small 0-1 array. It will create a job array with 2 jobs running simultaneously:
 ```
-mkdir 20210;sbatch --array=0-1%2 ukb_download_split_per_1000.slurm /scratch/user/uqapapro/UKB/20210.bulk
+mkdir 20210;sbatch --array=0-1%2 ukb_download_split_per_1000.slurm /scratch/user/${USER}/UKB/20210.bulk
 ```
 
 The script itself will create several batch folders as follows:
