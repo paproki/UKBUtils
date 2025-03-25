@@ -23,7 +23,7 @@
 #################################################################################
 
 
-############################### IMPORTANT WARNING ###############################
+############################### BASIC COMMAND LINE ###############################
 ##
 ## Example of usage with bulk item 20210
 ## sbatch --array=0-$((`wc -l < 20210.csv`/1000))%3 ukb_download_split_per_1000.slurm /scratch/user/uqapapro/UKB/20210.csv
