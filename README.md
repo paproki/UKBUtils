@@ -58,5 +58,15 @@ An example of fail.log would be
 3
 ```
 
+This information can be used to detect abnormal errors. If the number at the bottom differs from the number of missing then something happened. 
+
 Finally the file corrupted_zips.log will only be create if the script detects that a zip file is malformed. For test this I go through all the zip files and try unzipping them using unzip -t XXXXXXXXXX.zip, which is a 'silent' unzipping that does not actually do the unzipping.
 
+## Documentation for Create_bulk_file.sh
+
+Write more documentation when I have more time. In the meantime you can look at the script itself it is pretty intuitive. 
+Note that due to the size of the tab file, I am forced to use 'gawk' rather than 'awk' so you may need to install it.
+
+## Documentation for ExtractDemographicsUKB.sh
+Write more documentation when I have more time. In the meantime you can look at the script itself it is pretty intuitive. 
+Note that due to the size of the tab file, I am forced to use 'gawk' rather than 'awk' so you may need to install it.
