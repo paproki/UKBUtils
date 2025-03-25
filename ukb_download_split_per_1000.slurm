@@ -50,7 +50,7 @@ BULK_ID=${BULK_BASENAME/.bulk/}
 
 # Environment setup
 echo "Starting UK Biobank data download at $(date)"
-echo "Job ID: $SLURM_JOB_ID, Array Task ID: $SLURM_ARRAY_TASK_ID"
+echo "Job ID: $SLURM_ARRAY_JOB_ID, Array Task ID: $SLURM_ARRAY_TASK_ID"
 
 # Set working directory
 WORK_DIR="/scratch/user/${USER}/UKB"  # Replace with your directory
@@ -63,7 +63,7 @@ UKBFETCH="$TOOLS_DIR/ukbfetch"              # Adjust path to ukbfetch
 AUTH_KEY="$TOOLS_DIR/k100773x53188.key"     # Authentication key
 
 # The file below is used to check for 'expected' errors for participants that cannot be downloaded
-OUTPUT_SLURM=$WORK_DIR/slurm_${SLURM_JOB_ID}_${SLURM_ARRAY_TASK_ID}_output #Output log file from script
+OUTPUT_SLURM=$WORK_DIR/slurm_${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}_output #Output log file from script
 
 # Check if required files exist
 if [ ! -f "$UKBFETCH" ]; then
