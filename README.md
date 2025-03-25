@@ -28,7 +28,7 @@ The ukb_download_split_per_1000.slurm will start a job array and distribute jobs
 ```
 mkdir 20210;sbatch --array=0-$((`wc -l < 20210.bulk`/1000))%10 ukb_download_split_per_1000.slurm /scratch/user/uqapapro/UKB/20210.bulk
 ```
-We start by creating a folder for the bulk item. I prefer to do it before to avoid have several jobs trying to create it, which may cause trouble.
+We start by creating a folder for the bulk item. I prefer to do it before to avoid having several jobs trying to create it, which may cause trouble.
 
 If the bulk file 20210.bulk contains 75766 lines, this command line will create a job array of size 0-75 (n=76). In this case, because I suffixed %10 to the --array=0-75%10 parameter, slurm with only run 10 jobs simultaneously. Since we have only 10 instances that we can run simultaneously between all of us we'll need to change this to predefined number, for example %3. 
 
@@ -54,7 +54,7 @@ The script itself will create several batch folders as follows:
 ------------------------/20210/batch_075
 ```
 
-fail.log will contain information on the zip that were note downloaded at all (i.e., completely missing) and the last line will contain the number of 'expected fails'. For some reason some subjects are not available for download and the ukbfetch return and error with a 'code 2' which I used to count the number of expected failures which we can then compare to the number of missing zips.
+fail.log will contain information on the zip that were not downloaded at all (i.e., completely missing) and the last line will contain the number of 'expected fails'. For some reason some subjects are not available for download and the ukbfetch returns an error with a 'code 2', which I used to count the number of 'expected' failures which we can then compare to the number of missing zips.
 An example of fail.log would be
 ```
 1204125 20210_3_0 1204125_20210_3_0.zip
@@ -63,20 +63,20 @@ An example of fail.log would be
 3
 ```
 
-This information can be used to detect abnormal errors. If the number at the bottom differs from the number of missing then something happened. 
+This information can be used to detect abnormal errors. If the number at the bottom differs from the number of missing zips then something else happened ( ¯\_(ツ)_/¯ ). 
 
-Finally the file corrupted_zips.log will only be create if the script detects that a zip file is malformed. For test this I go through all the zip files and try unzipping them using unzip -t XXXXXXXXXX.zip, which is a 'silent' unzipping that does not actually do the unzipping.
+Finally the file corrupted_zips.log will only be create if the script detects that a zip file is malformed. To test this I go through all the zip files and try unzipping them using 'unzip -t XXXXXXXXXX.zip', which runs a 'silent' unzipping that does not actually do the unzipping but tests if it would work.
 
-At the moment the maximum time dedicated to each job is 6 hours. You may need to change this based on your need. For each bulk file I would recommend downloading a couple of examples individually on your own machine to check the size of the zip file. The command to download an individual zip file is as follows:
+At the moment the maximum time dedicated for each individual job is 6 hours. You may need to change this based on your needs (e.g., diffusion MRI will be huge). For each bulk file I would recommend downloading a couple of examples individually on your own machine to check the size of the zip file. The command to download an individual zip for a given Subject EID and bulk ID  is as follows:
 ```
   ukbfetch -e<EID> -d<BULK-ID> -a/path/to/key.key
 ```
-You can find example EID and BULKD-ID in the bulkfiles.bulk
+You can find example EID and BULKD-ID in the bulkfiles.bulk. (PS: do not add a space between the -e and <EDI>, it needs to be something like -e987987464 all struck together)
 
-It takes roughly 4 hours to download 1000 zip files averaging 6Mb. Based on this you can decide how much time you need for your jobs.
+It takes roughly 4 hours to download 1000 zip files averaging 6Mb and do the unzip test. Based on this you can decide how much time you need for your jobs.
 
 
-The last step which is no included in this script will be to copy the data onto RDM. However I think we'll maybe, possibly, probably need to manually check the fail logs prior to doing the copying?!
+The last step, which is no included in this script, will be to copy the data onto RDM. However I think we'll maybe, possibly, probably need to manually check the fail logs prior to doing the copying ¯\_(ツ)_/¯ ?!
 
 ## Documentation for Create_bulk_file.sh
 
