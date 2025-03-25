@@ -32,6 +32,11 @@ Here we start by creating a folder for the bulk item. I prefer to do it before t
 
 If the bulk file 20210.bulk contains 75766 lines, this command line will create a job array of size 0-75 (n=76). In this case, because I suffixed %10 to the --array=0-75%10 parameter, slurm with only run 10 jobs simultaneously. Since we have only 10 instances that we can run simultaneously between all of us we'll need to change this to predefined number, for example %3.
 
+Note that if you wanted to do a little try with a couple batches you can simply run the following command with a small 0-1 array. It will create a job array with 2 jobs running simultaneously:
+```
+mkdir 20210;sbatch --array=0-1%2 ukb_download_split_per_1000.slurm /scratch/user/uqapapro/UKB/20210.bulk
+```
+
 The script itself will create several batch folders as follows:
 
 
