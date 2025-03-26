@@ -21,7 +21,7 @@ For the download script, the assumed directory structure is as follows:
 
 All slurm output logs will be saved under /scratch/user/{USER}/UKB
 
-**It is important to have a bulk file with the following filename <ins>**BULKID.bulk**</ins> as I use it to build the path to the folder for download** (I could have done it differently but that was more work and I was getting lazy ¯\\_(ツ)_/¯ ).
+**It is important to have a bulk file with the following filename <ins>**BULKID.bulk**</ins> as I use it to build the path to the folder for download** (I could have done it differently but that was more work and I was getting lazy ¯\\\_(ツ)\_/¯ ).
 
 ## ukb_download_split_per_1000.slurm script usage
 
@@ -65,7 +65,7 @@ An example of fail.log would be
 3
 ```
 
-This information can be used to detect abnormal errors. If the number at the bottom differs from the number of missing zips then something else happened ( ¯\\_(ツ)_/¯ ). 
+This information can be used to detect abnormal errors. If the number at the bottom differs from the number of missing zips then something else happened ( ¯\\\_(ツ)\_/¯ ). 
 
 Finally the file **<ins>corrupted_zips.log</ins>** will only be created if the script detects that a zip file is malformed. To test this I go through all the zip files and try unzipping them using 'unzip -t XXXXXXXXXX.zip', which runs a 'silent' unzipping that does not actually do the unzipping but tests if it would work.
 
@@ -78,9 +78,9 @@ You can find example EID and BULKD-ID in the bulkfiles.bulk. (PS: do not add a s
 It takes roughly 4 hours to download 1000 zip files averaging 6Mb and do the unzip test. Based on this you can decide how much time you need for your jobs.
 
 
-The last step, which is no included in this script, will be to copy the data onto RDM. However I think we'll maybe, possibly, probably need to manually check the fail logs prior to doing the copying ¯\\_(ツ)_/¯ ?!
+The last step, which is no included in this script, will be to copy the data onto RDM. However I think we'll maybe, possibly, probably need to manually check the fail logs prior to doing the copying ¯\\\_(ツ)\_/¯ ?!
 
-Note that I have no failsafe for cases where Bunya itself fails and screws up jobs. You can figure out if this happened using a command like sacct -X -j <job id> -o "JobID,JobName,State,Start,End,Elapsed,NodeList,ReqMem,MaxRSS,ExitCode,User"
+Note that I have no failsafe for cases where Bunya itself fails and screws up jobs. You can figure out if this happened using a command like sacct -X -j \<job id\> -o "JobID,JobName,State,Start,End,Elapsed,NodeList,ReqMem,MaxRSS,ExitCode,User"
 
 ## Documentation for Create_bulk_file.sh
 
