@@ -22,6 +22,8 @@ export UKB_TOKEN="yyYXXXXXXAAAZZZZEEeeddAAA"
 
 To install both the command line interface and the python package, you can simply use the command below (I'd recommend doing it in a conda environment).
 
+Source https://github.com/dnanexus/dx-toolkit
+
 ```
 pip install dxpy
 ```
