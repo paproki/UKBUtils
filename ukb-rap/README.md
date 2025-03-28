@@ -132,7 +132,7 @@ participant.eid,participant.p20218_i2,participant.p20218_i3
 
 ## Step three: post-process output file
 
-If you want to used this to create a bulk file for download, you will need to filter out and reformat the output. The script Filter_dx_output.sh in this folder does just that (only works for 3 columns).
+If you want to use this to create a bulk file for download, you will need to filter out and reformat the output. The script Filter_dx_output.sh in this folder does just that (only works for 3 columns).
 
 For example:
 
