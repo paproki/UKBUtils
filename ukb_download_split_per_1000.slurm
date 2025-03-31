@@ -53,8 +53,8 @@ if [[ ! -f $2 ]];then
     exit 1;
 fi
 
-BULK_FILE="$1"            # Your bulk file with XX,XXX lines
-BULK_ID="$2"            # Your bulk file with XX,XXX lines
+BULK_FILE="$1"              # Your bulk file with XX,XXX lines
+BULK_ID="$2"                # Your bulk file with XX,XXX lines
 
 # Environment setup
 echo "Starting UK Biobank data download at $(date)"
@@ -171,8 +171,21 @@ fi
 #   FAILED DOWNLOAD FILE
 #
 
-n_exp_fails=$((`cat $OUTPUT_SLURM | grep Error | grep code\ 2 | wc -l`/2))
-echo "Expected fails: $n_exp_fails" >> $FAILED
+n_exp_fails_exp=$((`cat $OUTPUT_SLURM | grep Error | grep code\ 2 | wc -l`))
+n_exp_fails_exp2=$((`cat $OUTPUT_SLURM | grep position\ 2 | wc -l`))
+estimated_number=$(( (n_exp_fails_exp+n_exp_fails_exp2)/2 ))
+echo "Expected fails (estimated): $estimated_number" >> $FAILED
+
+#
+#   CHECK FOR UKB SERVER ERRORS
+#
+SERVER_LOG="server_failure.log"
+server_fails1=$((`cat $OUTPUT_SLURM | grep biota.ndph.ox.ac.uk | wc -l`))
+server_fails2=$((`cat $OUTPUT_SLURM | grep chest.ndph.ox.ac.uk | wc -l`))
+if [[ $server_fails1 -gt 0 ]] || [[ $server_fails2 -gt 0 ]];then
+    echo "Some UKB servers failed" >> $SERVER_LOG
+fi
+
 
 #
 #   CHECK FOR MALFORMED ZIP FILES THAT CANNOT BE UNZIPPED USING unzip -t (i.e., silent unzip for testing)
