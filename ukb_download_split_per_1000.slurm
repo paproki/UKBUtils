@@ -48,7 +48,7 @@ if [[ ! -f $1 ]];then
     exit 1;
 fi
 
-if [[ ! -f $2 ]];then 
+if [[ -z "$2" ]];then 
     echo "Error: No Bulk ID provided"
     exit 1;
 fi
