@@ -18,9 +18,11 @@ Make sure you save your token as you will only see it once. To avoid issue I'd s
 export UKB_TOKEN="yyYXXXXXXAAAZZZZEEeeddAAA"
 ```
 
-## Step install and use DNA-nexus toolkit
+## Step two: install and use DNA-nexus toolkit
 
 To install both the command line interface and the python package, you can simply use the command below (I'd recommend doing it in a conda environment).
+
+Source https://github.com/dnanexus/dx-toolkit
 
 ```
 pip install dxpy
@@ -128,7 +130,9 @@ participant.eid,participant.p20218_i2,participant.p20218_i3
 .....
 ```
 
-If you want to used this to create a bulk file for download, you will need to filter out and reformat the output. The script Filter_dx_output.sh in this folder does just that (only works for 3 columns).
+## Step three: post-process output file
+
+If you want to use this to create a bulk file for download, you will need to filter out and reformat the output. The script Filter_dx_output.sh in this folder does just that (only works for 3 columns).
 
 For example:
 
