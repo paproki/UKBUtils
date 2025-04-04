@@ -82,7 +82,7 @@ Note that I have no failsafe for cases where Bunya itself fails and screws up jo
 
 # Copy Bulk Folder Onto RDM
 
-To copy a folder onto the rdm, you can use the directly mapped QCRISData folder and send the copy command as a job using ukb_copy_rdm.slurm. By default I request 6h, you can change this as you need (might need more for bulk items like diffusion).
+To copy a folder onto the rdm, you can use the directly mapped QCRISData folder and send the copy command as a job using ukb_copy_rdm.slurm. By default I request 6h, you can change this as you need (might need more for bulk items like diffusion). For reference it took me **01:43:39** to transfer about **450Gb**.
 The script only takes the path to the bulk folder to copy as parameter. 
 
 Note that you need access to <ins>/QRISdata/Q7990</ins> to be able to run the script. TO know if you have proper access, you can type **groups** and you should see something like this: Q7990RW (i.e.,   read-write permissions)
