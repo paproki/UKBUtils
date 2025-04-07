@@ -128,6 +128,8 @@ sbatch ukb_copy_rdm.slurm /scratch/user/${USER}/UKB/20210
 ```
 This will just do a  **cp -r /scratch/user/${USER}/UKB/20210 /QRISdata/Q7990/bulk** command. 
 
+I do recommend to have the master Fail log into the bulkID folder and possible the original bulk file for reference.
+
 # Documentation for Create_bulk_file.sh
 
 Write more documentation when I have more time. In the meantime you can look at the script itself it is pretty intuitive. 
