@@ -80,6 +80,40 @@ The last step, which is no included in this script, will be to copy the data ont
 
 Note that I have no failsafe for cases where Bunya itself fails and screws up jobs. You can figure out if this happened using a command like sacct -X -j \<job id\> -o "JobID,JobName,State,Start,End,Elapsed,NodeList,ReqMem,MaxRSS,ExitCode,User"
 
+# Create master fail log from batch logs
+
+To run this program you will need to be in the folder where you create the bulk folders (normally **/scratch/user/{USER}/UKB/**). You will need to copy the script **Check_output_logs.sh** there. The script takes as input the bulk ID as follows (example with bulk ID 20210):
+```
+bash Check_output_logs.sh 20210
+```
+
+This will create a log file in the bulk folder that concates all batch log files as follows:
+```
+= = = = = = = = = = = = = = = = batch_000 = = = = = = = = = = = = = = = 
+     1	1079617 20210_3_0 1079617_20210_3_0.zip
+     2	1133400 20210_3_0 1133400_20210_3_0.zip
+     3	1141808 20210_3_0 1141808_20210_3_0.zip
+     4	1301404 20210_3_0 1301404_20210_3_0.zip
+     5	1328297 20210_3_0 1328297_20210_3_0.zip
+     6	1348769 20210_3_0 1348769_20210_3_0.zip
+     7	Expected fails (estimated): 6
+No corrupted zip files found in batch_000
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+= = = = = = = = = = = = = = = = batch_001 = = = = = = = = = = = = = = = 
+     1	1649278 20210_3_0 1649278_20210_3_0.zip
+     2	1680365 20210_3_0 1680365_20210_3_0.zip
+     3	1710256 20210_3_0 1710256_20210_3_0.zip
+     4	1735387 20210_3_0 1735387_20210_3_0.zip
+     5	1814095 20210_3_0 1814095_20210_3_0.zip
+     6	1953063 20210_3_0 1953063_20210_3_0.zip
+     7	Expected fails (estimated): 6
+No corrupted zip files found in batch_001
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+= = = = = = = = = = = = = = = = batch_002 = = = = = = = = = = = = = = = 
+...
+...
+```
+
 # Copy Bulk Folder Onto RDM
 
 To copy a folder onto the rdm, you can use the directly mapped QCRISData folder and send the copy command as a job using ukb_copy_rdm.slurm. By default I request 6h, you can change this as you need (might need more for bulk items like diffusion). For reference it took me **01:43:39** to transfer about **450Gb**.
