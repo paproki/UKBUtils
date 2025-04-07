@@ -80,11 +80,25 @@ The last step, which is no included in this script, will be to copy the data ont
 
 Note that I have no failsafe for cases where Bunya itself fails and screws up jobs. You can figure out if this happened using a command like sacct -X -j \<job id\> -o "JobID,JobName,State,Start,End,Elapsed,NodeList,ReqMem,MaxRSS,ExitCode,User"
 
-## Documentation for Create_bulk_file.sh
+# Copy Bulk Folder Onto RDM
+
+To copy a folder onto the rdm, you can use the directly mapped QCRISData folder and send the copy command as a job using ukb_copy_rdm.slurm. By default I request 6h, you can change this as you need (might need more for bulk items like diffusion). For reference it took me **01:43:39** to transfer about **450Gb**.
+The script only takes the path to the bulk folder to copy as parameter. 
+
+Note that you need access to <ins>/QRISdata/Q7990</ins> to be able to run the script. TO know if you have proper access, you can type **groups** and you should see something like this: Q7990RW (i.e.,   read-write permissions)
+
+An example of command would be:
+
+```
+sbatch ukb_copy_rdm.slurm /scratch/user/${USER}/UKB/20210
+```
+This will just do a  **cp -r /scratch/user/${USER}/UKB/20210 /QRISdata/Q7990/bulk** command. 
+
+# Documentation for Create_bulk_file.sh
 
 Write more documentation when I have more time. In the meantime you can look at the script itself it is pretty intuitive. 
 Note that due to the size of the tab file, I am forced to use 'gawk' rather than 'awk' so you may need to install it.
 
-## Documentation for ExtractDemographicsUKB.sh
+# Documentation for ExtractDemographicsUKB.sh
 Write more documentation when I have more time. In the meantime you can look at the script itself it is pretty intuitive. 
 Note that due to the size of the tab file, I am forced to use 'gawk' rather than 'awk' so you may need to install it.
