@@ -40,31 +40,55 @@ if [[ -f $OUTPUT_FILE ]];then
     rm $OUTPUT_FILE
 fi
 
+# IFS=","
+# i=0
+# n_have_2=0
+# while read EID FIELD1 FIELD2;
+# do
+#     if [[ $i == 0 ]];then
+#         i=$((i+1))
+#         continue;
+#     fi 
+#     if [[ "$FIELD1" != "" ]];then
+#         str_bulk=${FIELD1/${EID}_/}
+#         str_bulk=${str_bulk/.zip/}
+#         echo "$EID $str_bulk" >> $OUTPUT_FILE
+#     fi
+
+#     if [[ "$FIELD2" != "" ]];then
+#         str_bulk=${FIELD2/${EID}_/}
+#         str_bulk=${str_bulk/.zip/}
+#         echo "$EID $str_bulk" >> $OUTPUT_FILE
+#     fi
+    
+#     if [[ "$FIELD1" != "" ]] && [[ "$FIELD2" != "" ]];then
+#         n_have_2=$((n_have_2+1))
+#     fi
+
+# done < $INPUT_FILE 
+
+
 IFS=","
 i=0
-n_have_2=0
-while read EID FIELD1 FIELD2;
-do
-    if [[ $i == 0 ]];then
-        i=$((i+1))
-        continue;
-    fi 
-    if [[ "$FIELD1" != "" ]];then
-        str_bulk=${FIELD1/${EID}_/}
-        str_bulk=${str_bulk/.zip/}
-        echo "$EID $str_bulk" >> $OUTPUT_FILE
+while read -r -a fields; do
+
+    if [[ $i -eq 0 ]]; then
+        i=$((i + 1))
+        continue  # Skip the header row
     fi
 
-    if [[ "$FIELD2" != "" ]];then
-        str_bulk=${FIELD2/${EID}_/}
-        str_bulk=${str_bulk/.zip/}
-        echo "$EID $str_bulk" >> $OUTPUT_FILE
-    fi
-    
-    if [[ "$FIELD1" != "" ]] && [[ "$FIELD2" != "" ]];then
-        n_have_2=$((n_have_2+1))
-    fi
+    # First column is the ID
+    ID="${fields[0]}"
 
-done < $INPUT_FILE 
+    # Loop through columns 1 to n-1 (excluding ID, 0-based index)
+    for ((j = 1; j < ${#fields[@]}; j++)); do
+        value="${fields[$j]//\"/}"  # Remove quotes from the value
+        if [[ "$value" != "" ]]; then
 
-echo "This many participants have had 2 scans: $n_have_2"
+            str_bulk=${value/${ID}_/}
+            str_bulk=${str_bulk/.zip/}
+
+            echo "$ID $str_bulk" >> "$OUTPUT_FILE"
+        fi
+    done
+done < "$INPUT_FILE"
