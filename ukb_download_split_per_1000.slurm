@@ -145,6 +145,14 @@ if [ $? -eq 0 ]; then
     # Create temporary files to track downloads
     TEMP_BULK="temp_bulk_${BATCH_NAME}.txt"   # Temporary file with bulk entries for this batch
     FAILED="fail.log"                         # File to track failed downloads
+
+    if [[ -f $FAILED ]];then
+	    rm $FAILED
+    fi
+
+    if [[ -f $TEMP_BULK ]];then
+	    rm $TEMP_BULK
+    fi
     
     # Calculate the range of lines from bulk file for this batch
     END_LINE=$((START_LINE + MAX_LINES - 1))
@@ -180,6 +188,9 @@ echo "Expected fails (estimated): $estimated_number" >> $FAILED
 #   CHECK FOR UKB SERVER ERRORS
 #
 SERVER_LOG="server_failure.log"
+if [[ -f $SERVER_LOG ]];then
+	rm $SERVER_LOG
+fi
 server_fails1=$((`cat $OUTPUT_SLURM | grep biota.ndph.ox.ac.uk | wc -l`))
 server_fails2=$((`cat $OUTPUT_SLURM | grep chest.ndph.ox.ac.uk | wc -l`))
 if [[ $server_fails1 -gt 0 ]] || [[ $server_fails2 -gt 0 ]];then
@@ -190,6 +201,11 @@ fi
 #
 #   CHECK FOR MALFORMED ZIP FILES THAT CANNOT BE UNZIPPED USING unzip -t (i.e., silent unzip for testing)
 #
+
+if [[ -f corrupted_zips.log ]];then
+	rm corrupted_zips.log
+fi
+
 find . -name "*.zip" | xargs -n 1 -P 4 -I {} bash -c 'if ! unzip -t "{}" >/dev/null 2>&1; then echo "{}" >> corrupted_zips.log; fi'
 
 
