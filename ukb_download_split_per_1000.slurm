@@ -53,8 +53,13 @@ if [[ -z "$2" ]];then
     exit 1;
 fi
 
+BULK_START=0
+if [[ $# -gt 2 ]];then 
+    BULK_START=$3
+fi
+
 BULK_FILE="$1"              # Your bulk file with XX,XXX lines
-BULK_ID="$2"                # Your bulk file with XX,XXX lines
+BULK_ID="$2"                # Your bulk ID
 
 # Environment setup
 echo "Starting UK Biobank data download at $(date)"
@@ -109,7 +114,8 @@ echo "Batch $SLURM_ARRAY_TASK_ID: Start line = $START_LINE, Max lines = $MAX_LIN
 #
 
 # Create a directory for this batch
-BATCH_NAME=$(printf '%03d' $SLURM_ARRAY_TASK_ID) # Formatting 00X
+BULK_IDX=$((BULK_START+SLURM_ARRAY_TASK_ID))
+BATCH_NAME=$(printf '%03d' $BULK_IDX) # Formatting 00X
 BATCH_DIR="batch_${BATCH_NAME}"
 FETCHED="fetched_${BATCH_NAME}"
 mkdir -p "$BULK_ID/$BATCH_DIR"
