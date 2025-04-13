@@ -42,7 +42,9 @@ The script itself will create several batch folders as follows:
 **In the case of a bulk item that is too big to fit on scratch, you will need to split the the bulk file into several bulk files to make sure the output will fit within 5Tb of scratch space. When this happens, you will have the opportunity to pass an extra parameter to the script with the beginning batch name. For example if you split your bulk file into two bulk files to be processed separately, when you start the second batch, you can pass the next batch_id, for example if the during the first half, batch_000 to batch_032 were created you would pass 33 to script when running the second half as follows:**
 
 ```
-mkdir 20210;sbatch --array=0-1%2 ukb_download_split_per_1000.slurm /scratch/user/${USER}/UKB/20210.bulk 20210 33
+mkdir 20209;sbatch --array=0-$((`wc -l < 20209_2.bulk`/1000))%10 ukb_download_split_per_1000.slurm /scratch/user/uqapapro/UKB/20209_2.bulk 20209 33
+This assume that you have copied the first round of download for 20209_1.bulk onto rdm and deleted folder 20209. This will start the download process
+from batch 33+0 to batch 33+XX
 ```
 Note that in this case you will need to manage a bit more carefully the copy onto rdm. Note that the **cp** command merges folders if files within the folder have different names. If they have the same name, the file from the source will overwrite the file in the target directory.
 
