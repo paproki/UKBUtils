@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#This file is here to try and redownload the failed cases that can be found in fail.log files
+#after the ukb download script finished
+#This can be useful in case where there was a DNS/server error during the download.
+#You need to copy this script in your local tools directory where ukbfetch and the key
+#are located
+
 if [[ ! -f $1 ]];then
     echo "Please pass the fail log as argument"
     exit
