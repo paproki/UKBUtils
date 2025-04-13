@@ -120,6 +120,30 @@ No corrupted zip files found in batch_001
 ...
 ```
 
+# Retrying failed downloads on cluster vs locally
+
+## On your local machine
+If you have identified specific batches that have failed. You can use their respective fail log files to attempt to redownload the failed cases on your local machine. You need to copy the script Retry_fails.sh in your tools directory where ukbfetch and the key are located. 
+
+It takes as argument the fail.log file that is found in the batch_XXX folder. It will download the files in the tools folder and you just need to copy the files back to your cluster folder.
+
+```
+bash Retry_fails.sh /<Path>/<to>/fail.log
+```
+## On the cluster
+You can also just re-run a batch download on the cluster. For example if batch 22 failed. you can just run 
+
+```
+sbatch --array=22-22 ukb_download_split_per_1000.slurm /scratch/user/uqapapro/UKB/20209_1.bulk 20209
+
+Note that if you had to split the bulk file into two or more files due to size, you will be need to specify the batch number relative to your batch start number. For example
+
+sbatch --array=21-21 ukb_download_split_per_1000.slurm /scratch/user/uqapapro/UKB/20209_2.bulk 20209 32
+
+Will retry the download for batch 32+21=53.
+```
+
+
 # Copy Bulk Folder Onto RDM
 
 To copy a folder onto the rdm, you can use the directly mapped QCRISData folder and send the copy command as a job using ukb_copy_rdm.slurm. By default I request 6h, you can change this as you need (might need more for bulk items like diffusion). For reference it took me **01:43:39** to transfer about **450Gb**.
