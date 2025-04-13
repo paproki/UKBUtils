@@ -3,7 +3,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=10G
-#SBATCH --job-name=ukb-down
+#SBATCH --job-name=ukb-copy
 #SBATCH --time=06:00:00               # Increased to 4 hours per batch
 #SBATCH --partition=general           # Adjust to your cluster
 #SBATCH --account=a_lena_neuro        # Adjust to your account
