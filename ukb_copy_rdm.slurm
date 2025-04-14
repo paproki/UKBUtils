@@ -41,4 +41,4 @@ fi
 
 RDMDEST=/QRISdata/Q7990/bulk
 
-cp -r $1 $RDMDEST
+rsync -azvvh $1 $RDMDEST
