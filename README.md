@@ -158,11 +158,12 @@ An example of command would be:
 ```
 sbatch ukb_copy_rdm.slurm /scratch/user/${USER}/UKB/20210
 ```
-This will just do a  **cp -r /scratch/user/${USER}/UKB/20210 /QRISdata/Q7990/bulk** command. 
+This will do a  **rsync -azvvh /scratch/user/${USER}/UKB/20210 /QRISdata/Q7990/bulk** command. 
+
+I swapped from a basic cp command to rsync due to fails that happened with cp for some reason. 
 
 I do recommend to have the master Fail log into the bulkID folder and possible the original bulk file for reference.
 
-Iddeally it would be good to replace cp with rsync, however I'm not entirely sure it is recommended for use with rdm?
 
 # Documentation for Create_bulk_file.sh
 
