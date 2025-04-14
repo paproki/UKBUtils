@@ -162,6 +162,8 @@ This will just do a  **cp -r /scratch/user/${USER}/UKB/20210 /QRISdata/Q7990/bul
 
 I do recommend to have the master Fail log into the bulkID folder and possible the original bulk file for reference.
 
+Iddeally it would be good to replace cp with rsync, however I'm not entirely sure it is recommended for use with rdm?
+
 # Documentation for Create_bulk_file.sh
 
 Write more documentation when I have more time. In the meantime you can look at the script itself it is pretty intuitive. 
