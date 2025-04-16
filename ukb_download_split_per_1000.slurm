@@ -148,6 +148,9 @@ if [ $? -eq 0 ]; then
     FILE_COUNT=$(wc -w < "$FETCHED.lis")
     echo "Downloaded $FILE_COUNT files"
 
+    example_file_fetched=`head -1 $FETCHED.lis`
+    extension="${example_file_fetched##*.}"
+
     # Create temporary files to track downloads
     TEMP_BULK="temp_bulk_${BATCH_NAME}.txt"   # Temporary file with bulk entries for this batch
     FAILED="fail.log"                         # File to track failed downloads
@@ -169,8 +172,8 @@ if [ $? -eq 0 ]; then
     # Check each expected download against actual files
     while read PID FID; do
         # If expected zip file doesn't exist, log it as failed
-        if [[ ! -f ${PID}_${FID}.zip ]]; then
-            echo "${PID} ${FID} ${PID}_${FID}.zip" >> $FAILED
+        if [[ ! -f ${PID}_${FID}.${extension} ]]; then
+            echo "${PID} ${FID} ${PID}_${FID}.${extension}" >> $FAILED
         fi
     done < $TEMP_BULK
 else
