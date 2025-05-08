@@ -73,7 +73,7 @@ TOOLS_DIR="/scratch/user/${USER}/tools"
 
 # Paths to files
 UKBFETCH="$TOOLS_DIR/ukbfetch"              # Adjust path to ukbfetch
-AUTH_KEY="$TOOLS_DIR/k100773x53188.key"     # Authentication key
+AUTH_KEY="$TOOLS_DIR/k100773r679958.key"     # Authentication key
 
 # The file below is used to check for 'expected' errors for participants that cannot be downloaded
 OUTPUT_SLURM=$WORK_DIR/slurm_${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}_output #Output log file from script
