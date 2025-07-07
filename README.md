@@ -62,7 +62,7 @@ Note that in this case you will need to manage a bit more carefully the copy ont
 ------------------------/20210/batch_075
 ```
 
-<ins>**fail.log**</ins> will contain information on the zip that were not downloaded at all (i.e., completely missing) and the last line will contain the number of **expected fails**. For some reason some subjects are not available for download and the ukbfetch returns an error with a 'code 2', which I used to count the number of 'expected' failures which we can then compare to the number of missing zips.
+<ins>**fail.log**</ins> will contain information on the zip that were not downloaded at all (i.e., completely missing) and the last line will contain the number of **expected fails**. For some reason some subjects are not available for download and the ukbfetch returns an error with a 'code 2', which I used to count the number of 'expected' failures which we can then compare to the number of missing zips. Note that this is an estimation that is correct 98% of the time, however, sometimes the ukfetch returns inconsistant error messages, in which case the estimated number of fails can be off by a couple of samples.
 An example of fail.log would be
 ```
 1204125 20210_3_0 1204125_20210_3_0.zip
